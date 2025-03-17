@@ -1,0 +1,44 @@
+1. soru
+-SELECT * 
+FROM Invoice 
+WHERE "customer_id" IS NULL 
+   OR "invoice_date" IS NULL 
+   OR "billing_address" IS NULL 
+   OR "billing_city" IS NULL 
+   OR "billing_state" IS NULL 
+   OR "billing_country" IS NULL 
+   OR "billingpostal_code" IS NULL 
+   OR "total" IS NULL;
+
+#NULL olan satırların sayısını döndürmek için "COUNT	"kullandık
+#Tüm sütunların aynı anda NULL olup olmadığını kontrol etmek için "WHERE" kullandık.
+#SQL'de bir sütunun boş olup olmadığını kontrol etmek için "IS NULL" kullandık.
+
+2.soru
+-SELECT 
+    "invoice_id",
+    "customer_id",
+    "total" AS "Old_Total",
+    "total" * 2 AS "New_Total"
+FROM "invoice"
+ORDER BY "New_Total" DESC;
+
+#Yabloda Eski total değerini göstermek için "total" AS "Old_Total" kullandık.
+#Yeni total değerini hesaplamak için "total" * 2 AS "New_Total" kullandık.
+#Yeni total değerine göre büyükten küçüğe sıralamak için "ORDER BY "New_Total" DESC" kullaandık. .
+
+3. soru
+-SELECT 
+    "invoice_id",
+    "customer_id",
+    LEFT("billing_address", 3) || '...' || RIGHT("billing_address", 4) AS "Açık Adres",
+    "invoice_date"
+FROM "invoice"
+WHERE EXTRACT(YEAR FROM "invoice_date") = 2013
+AND EXTRACT(MONTH FROM "invoice_date") = 8;
+
+#Adresin ilk 3 karakterini alımak için "LEFT("billing_address", 3)" kullandık.
+#Adresin son 4 karakterini almak için "RIGHT("billing_address", 4)" kullandık.
+#Ortadaki kayıp kısmı belirtmek için "|| '...' ||" kullandık.
+#Yılı 2013 olan kayıtları seçme için "EXTRACT(YEAR FROM "invoice_date") = 2013" kullandık.
+#Ağustos (8. ay) olanları filtrelemek için "EXTRACT(MONTH FROM "invoice_date") = 8" kullandık.
